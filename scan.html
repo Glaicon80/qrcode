@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!--  <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.4/html5-qrcode.min.js" integrity="sha512-k/KAe4Yff9EUdYI5/IAHlwUswqeipP+Cp5qnrsUjTPCgl51La2/JhyyjNciztD7mWNKLSXci48m7cctATKfLlQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>-->
+   
+</head>
+<body>
+    <script src="./node_modules/html5-qrcode/html5-qrcode.min.js"></script>
+    <style>
+        main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #reader {
+            width: 300px;
+        }
+        #result {
+            text-align: center;
+            font-size: 1.5rem;
+        }
+    </style>
+    
+    <main>
+        <div id="reader"></div>
+        <div id="result"></div>
+    </main>
+        
+    
+    <script>
+    
+        const scanner = new Html5QrcodeScanner('reader', { 
+            // O scanner será inicializado no DOM dentro do elemento com id de 'reader'
+            qrbox: {
+                width: 250,
+                height: 250,
+            },  // Define as dimensões da caixa de digitalização (definida em relação à largura do elemento do leitor)
+            fps: 20, // Frames por segundo para tentar uma varredura
+        });
+    
+    
+        scanner.render(success, error);
+        // Starts scanner
+    
+        function success(result) {
+    
+            document.getElementById('result').innerHTML = `
+            <h2>Success!</h2>
+            <p><a href="${result}">${result}</a></p>
+            `;
+            // Prints o resultado como um link dentro do elemento de resultado
+    
+            scanner.clear();
+            // Limpa a instância de verificação
+    
+            document.getElementById('reader').remove();
+            // Remove o elemento leitor do DOM, pois não é mais necessário
+        
+        }
+    
+        function error(err) {
+            //console.error(err);
+            //Imprime quaisquer erros no console
+        }
+
+        // abaixo segue o site de onde eu retirei o codigo
+        //https://openjavascript.info/2022/12/10/qr-code-scanner-with-html5-qrcode-js/
+        // video do youtube
+        //https://www.youtube.com/watch?v=19eo39lqpLM
+        //para gerar o o leitor de qr-code precisamos instalar no nosso projeto a biblioteca js html5-qrcode
+        //para isso vc pode usar um link CDN, conforme acima
+        //ou instalar a biblioteca no projeto via node/npm
+        //para isso vc entra na pasta do projeto cd .... Depois, confirma se o node esta instalado (node -v)
+        //depois vc da (npm init --y), e ja vai aparecer o arquivo package.json. depois vc instala a biblioteca (npm i html5-qrcode)
+        //ai a biblioteca vai ficar instalada no node_modulos e pode ser usada como acima.
+    </script>
+    
+</body>
+</html>
+
